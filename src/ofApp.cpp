@@ -29,7 +29,6 @@ void ofApp::setup() {
 	farThresh = 240;
 
 	ofSetFrameRate(60);
-	//ofSetFullscreen(true);
 
 	//set tilt to 0 on open
 	angle = 0;
@@ -81,33 +80,39 @@ void ofApp::draw() {
 
 	ofSetColor(255);
 
-	//draw from the live kinect
-	//kinect.drawDepth(10, 10, 400, 300);
-	//draw live RGB image from kinect
-	//kinect.draw(0, 0, ofGetWidth(), ofGetHeight());
+	if (help) {
 
-	//draw live depth
-	//grayImg.draw(0, 0, ofGetWidth(), ofGetHeight());
-	//draw blob
-	//contourFinder.draw(0, 0, ofGetWidth(), ofGetHeight());
-
-	ofSetCircleResolution(100);
-	for (int i = 0; i < notes.size(); i++) {
-		notes[i].draw(blobX[i], blobY[i], blobD[i]);
-	}
-
-	int gap = ofGetWidth() / 14;
-	for (int j = 1; j < 14; j++) {
-		ofDrawLine((gap * j), 0, (gap * j), ofGetHeight());
-	}
-
-	ofDrawBitmapString(scale[k], 10, 10);
-
-	if (major) {
-		ofDrawBitmapString("MAJOR", 28, 10);
+		ofDrawBitmapString("press z to lower octave", 60, 70);
+		ofDrawBitmapString("press x to raise octave", 60, 60);
+		ofDrawBitmapString("press c to lower note",  60, 50);
+		ofDrawBitmapString("press v to raise note", 60, 40);
+		ofDrawBitmapString("press m to switch major/minor", 60, 30);
+		ofDrawBitmapString("press f to toggle fullscreen", 60, 20);
 	}
 	else {
-		ofDrawBitmapString("MINOR", 28, 10);
+
+
+
+		ofSetCircleResolution(100);
+		for (int i = 0; i < notes.size(); i++) {
+			notes[i].draw(blobX[i], blobY[i], blobD[i]);
+		}
+
+		int gap = ofGetWidth() / 14;
+		for (int j = 1; j < 14; j++) {
+			ofDrawLine((gap * j), 0, (gap * j), ofGetHeight());
+		}
+
+		ofDrawBitmapString(scale[k], 10, 10);
+
+		if (major) {
+			ofDrawBitmapString("MAJOR", 28, 10);
+		}
+		else {
+			ofDrawBitmapString("MINOR", 28, 10);
+		}
+		ofDrawBitmapString("press h for help", ofGetWidth() -128, 10);
+
 	}
 }
 
@@ -190,6 +195,10 @@ void ofApp::keyPressed(int key) {
 
 	case 'f':
 		full = !full;
+		break;
+
+	case 'h':
+		help = !help;
 		break;
 
 	case 'z':

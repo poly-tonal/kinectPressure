@@ -49,6 +49,7 @@ public:
 	int bend;
 	int mod;
 	bool full = false;
+	bool help = false;
 	int octset = 0;
 	int offset = 0;
 	bool major = true;
